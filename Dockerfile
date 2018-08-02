@@ -6,7 +6,7 @@ RUN apt-get update \
     && apt-get -y install mysql-client libsoci-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/superoneio/eos_sql_db_plugin
+RUN git clone -b only_transfer https://github.com/superoneio/eos_sql_db_plugin
 
 RUN git clone -b $branch https://github.com/EOSIO/eos.git --recursive \
     && sed -i '20i\add_subdirectory(sql_db_plugin)' eos/plugins/CMakeLists.txt \
