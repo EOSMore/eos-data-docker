@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE=eos
+      - MYSQL_USER=eos
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ${MYSQL_DATA_PATH}:/var/lib/mysql
+      - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "${MYSQL_PORT}:3306"
+  nodeosd:
+    image: imeos/eosio:data
+    command: /opt/eosio/bin/nodeosd.sh --genesis-json /opt/eosio/bin/data-dir/genesis.json --sql_db-uri="mysql://db=eos user=eos host=mysql password='secret'"
+    volumes:
+      - ./config:/opt/eosio/bin/data-dir
+      - ${BLOCK_DATA_PATH}:/root/.local/share/eosio/nodeos/data
