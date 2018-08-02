@@ -14,7 +14,7 @@ services:
     ports:
       - "${MYSQL_PORT}:3306"
   nodeosd:
-    image: imeos/eosio:data
+    image: imeos/eosio:transfer
     command: /opt/eosio/bin/nodeosd.sh --genesis-json /opt/eosio/bin/data-dir/genesis.json --sql_db-uri="mysql://db=eos user=eos host=mysql password='secret'"
     volumes:
       - ./config:/opt/eosio/bin/data-dir
